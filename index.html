@@ -2,51 +2,96 @@
 <html lang="el">
 <head>
   <meta charset="UTF-8">
-  <title>Greek QR Code</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Το QR δημιουργήθηκε τον Μάιο του 2026</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      font-family: sans-serif;
+      font-family: 'Georgia', serif;
+      background: #1a1a2e;
+      color: #eee;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
-      margin: 0;
-      background: #f5f5f5;
+      padding: 40px 20px;
+      text-align: center;
     }
-    h2 { color: #333; margin-bottom: 8px; }
-    p { color: #666; margin-bottom: 24px; font-size: 14px; }
-    #qrcode canvas, #qrcode img { border: 12px solid white; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
-    .message { margin-top: 20px; font-size: 18px; color: #444; font-weight: bold; }
-    .hint { font-size: 12px; color: #999; margin-top: 6px; }
-    button {
-      margin-top: 20px;
-      padding: 10px 24px;
-      background: #333;
-      color: white;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 14px;
+
+    .message {
+      font-size: clamp(1.6rem, 6vw, 3rem);
+      font-weight: bold;
+      color: #ffffff;
+      line-height: 1.4;
+      max-width: 600px;
+      text-shadow: 0 2px 20px rgba(100, 150, 255, 0.4);
+      margin-bottom: 40px;
     }
-    button:hover { background: #555; }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 2px;
+      margin: 0 auto 40px;
+    }
+
+    /* QR section — only shown on desktop */
+    .qr-section {
+      display: none;
+    }
+
+    @media (min-width: 768px) {
+      .qr-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+      }
+      .qr-label {
+        font-size: 13px;
+        color: #888;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+      #qrcode canvas, #qrcode img {
+        border: 10px solid white;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      }
+      button {
+        margin-top: 10px;
+        padding: 10px 24px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      button:hover { background: #764ba2; }
+    }
   </style>
 </head>
 <body>
-  <h2>QR Code Generator</h2>
-  <p>Scan to display the Greek message</p>
-  <div id="qrcode"></div>
+
   <div class="message">Το QR δημιουργήθηκε τον Μάιο του 2026</div>
-  <div class="hint">Scan to open the page with the Greek message</div>
-  <button onclick="downloadQR()">Download QR as PNG</button>
+  <div class="divider"></div>
+
+  <div class="qr-section">
+    <div class="qr-label">Σαρώστε για να δείτε το μήνυμα</div>
+    <div id="qrcode"></div>
+    <button onclick="downloadQR()">Download QR as PNG</button>
+  </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    const text = "https://harisf430.github.io/qr-greek/";
     const qr = new QRCode(document.getElementById("qrcode"), {
-      text: text,
-      width: 300,
-      height: 300,
+      text: "https://harisf430.github.io/qr-greek/",
+      width: 260,
+      height: 260,
       colorDark: "#000000",
       colorLight: "#ffffff",
       correctLevel: QRCode.CorrectLevel.H
@@ -54,7 +99,7 @@
 
     function downloadQR() {
       const canvas = document.querySelector("#qrcode canvas");
-      if (!canvas) { alert("QR not ready yet, try again in a moment."); return; }
+      if (!canvas) { alert("QR not ready yet."); return; }
       const link = document.createElement("a");
       link.download = "qr-greek.png";
       link.href = canvas.toDataURL("image/png");
