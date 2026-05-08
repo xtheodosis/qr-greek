@@ -37,12 +37,12 @@
   <p>Scan to display the Greek message</p>
   <div id="qrcode"></div>
   <div class="message">Το QR δημιουργήθηκε τον Μάιο του 2026</div>
-  <div class="hint">This text is encoded directly in the QR code above</div>
+  <div class="hint">Scan to open the page with the Greek message</div>
   <button onclick="downloadQR()">Download QR as PNG</button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   <script>
-    const text = "Το QR δημιουργήθηκε τον Μάιο του 2026";
+    const text = "https://harisf430.github.io/qr-greek/";
     const qr = new QRCode(document.getElementById("qrcode"), {
       text: text,
       width: 300,
